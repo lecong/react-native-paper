@@ -53,6 +53,7 @@ class TextInputFlat extends React.Component<ChildTextInputProps> {
     error: false,
     multiline: false,
     editable: true,
+    showUnderline: true,
     render: (props: RenderProps) => <NativeTextInput {...props} />,
   };
 
@@ -80,6 +81,7 @@ class TextInputFlat extends React.Component<ChildTextInputProps> {
       onRightAffixLayoutChange,
       left,
       right,
+      showUnderline,
       ...rest
     } = this.props;
 
@@ -163,8 +165,7 @@ class TextInputFlat extends React.Component<ChildTextInputProps> {
             .darken(0.06)
             .rgb()
             .string(),
-      borderTopLeftRadius: theme.roundness,
-      borderTopRightRadius: theme.roundness,
+      borderRadius: theme.roundness,
     };
 
     const labelScale = MINIMIZED_LABEL_FONT_SIZE / fontSize;
@@ -311,13 +312,15 @@ class TextInputFlat extends React.Component<ChildTextInputProps> {
 
     return (
       <View style={[containerStyle, viewStyle]}>
-        <Underline
-          parentState={parentState}
-          underlineColorCustom={underlineColorCustom}
-          error={error}
-          colors={colors}
-          activeColor={activeColor}
-        />
+        { showUnderline && (
+          <Underline
+            parentState={parentState}
+            underlineColorCustom={underlineColorCustom}
+            error={error}
+            colors={colors}
+            activeColor={activeColor}
+          />
+        ) }
         <View
           style={{
             paddingTop: 0,
